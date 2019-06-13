@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" name="test" packages="test">
+
+	<Appenders>
+		<Kafka name="kafkaAppender" topic="LOG_PREREGISTRATION">
+			<JSONLayout />
+			<Property name="bootstrap.servers">
+				<!-- cloud.smile-h2020.eu:9093 -->
+				localhost:9093
+			</Property>
+		</Kafka>
+		<Async name="Async">
+			<AppenderRef ref="kafkaAppender" />
+		</Async>
+
+
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{YYYY-MM-dd HH:mm:ss} %style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+		</Console>
+
+		<RollingFile name="RollingFile"
+			fileName="enrollment-service.log"
+			filePattern="$${date:yyyy-MM}/Enrollment_service-log4j2-%d{-dd-MMMM-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<pattern>%d{YYYY-MM-dd HH:mm:ss} %d %p %C{1.} [%t] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<!-- rollover on startup, daily and when the file reaches 10 MegaBytes -->
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+		<Logger name="test" level="INFO" additivity="false">
+			<AppenderRef ref="kafkaAppender" level="INFO" />
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.apache.kafka" level="WARN" />
+	</Loggers>
+</Configuration>
