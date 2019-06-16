@@ -1,4 +1,4 @@
-package de.fraunhofer.fokus.smile.services.auth.kafka;
+package com.test.spring.boot.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,24 +54,4 @@ public class KafkaConfiguration {
 		kafkaTemplate.setDefaultTopic(this.topic);
 		return kafkaTemplate;
 	}
-
-//	@Bean
-//	public CommandDispatcher commandProducer() {
-//		return new KafkaCommandDispatcher();
-//	}
-
-//	@Bean
-//	public KafkaProducer<String, String> commandProducer() {
-//
-//		try {
-//			Properties properties = new Properties();
-//			properties.load(this.context.getResource("classpath:" + this.kafkaProducerProperties).getInputStream());
-//
-//			return new KafkaProducer<String, String>(properties);
-//		} catch (final IOException exception) {
-//			LOGGER.error("Error loading Kafka producer properties", exception);
-//		}
-//
-//		return null;
-//	}
 }
