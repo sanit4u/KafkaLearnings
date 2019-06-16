@@ -1,4 +1,5 @@
-package de.fraunhofer.fokus.smile.services.auth.kafka;
+    
+package com.test.spring.boot.service;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.internals.RecordHeader;
@@ -11,14 +12,10 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 
-import de.fraunhofer.fokus.smile.services.events.infra.Event;
-import de.fraunhofer.fokus.smile.services.events.infra.EventDispatcher;
-import de.fraunhofer.fokus.smile.services.register.core.aspect.TrackTime;
 
-// NOTE : To send the postgres data we can use kafka source connector
-// https://www.confluent.io/blog/simplest-useful-kafka-connect-data-pipeline-world-thereabouts-part-1/
+
 @Component
-public class KafkaSender2 implements EventDispatcher {
+public class KafkaSender2 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaSender2.class);
 
@@ -31,9 +28,7 @@ public class KafkaSender2 implements EventDispatcher {
 	@Value("${kafka.topic.test}")
 	private String topic;
 
-	@TrackTime
-	@Override
-	public <T extends Event> void dispatch(T event) {
+	public void dispatch(Object event) {
 		try {
 
 			/*
