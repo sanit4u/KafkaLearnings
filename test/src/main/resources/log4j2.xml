@@ -5,7 +5,7 @@
 		<Kafka name="kafkaAppender" topic="LOG_PREREGISTRATION">
 			<JSONLayout />
 			<Property name="bootstrap.servers">
-				<!-- cloud.smile-h2020.eu:9093 -->
+				
 				localhost:9093
 			</Property>
 		</Kafka>
